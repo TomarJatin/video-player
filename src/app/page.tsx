@@ -2,6 +2,16 @@
 import Image from "next/image";
 import React, { useRef, useState, useEffect } from "react";
 
+const formatTime = (seconds: number): string => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+  return `${padZero(minutes)}:${padZero(remainingSeconds)}`;
+};
+
+const padZero = (num: number): string => {
+  return num < 10 ? `0${num}` : num.toString();
+};
+
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -190,20 +200,9 @@ export default function Home() {
             value={currentTime}
             max={duration}
             onClick={handleProgressBarClick}
-            
           />
         </div>
       </div>
     </div>
   );
 }
-
-const formatTime = (seconds: number): string => {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = Math.floor(seconds % 60);
-  return `${padZero(minutes)}:${padZero(remainingSeconds)}`;
-};
-
-const padZero = (num: number): string => {
-  return num < 10 ? `0${num}` : num.toString();
-};
